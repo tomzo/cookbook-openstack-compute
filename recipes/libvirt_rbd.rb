@@ -34,7 +34,7 @@ ceph_keyname = "client.#{ceph_user}"
 ceph_keyring = "/etc/ceph/ceph.#{ceph_keyname}.keyring"
 
 caps = { 'mon' => 'allow r',
-         'osd' => "allow class-read object_prefix rbd_children, allow rwx pool=#{cinder_pool}, allow rwx pool=#{nova_pool}, allow rx pool=#{glance_pool}" }
+         'osd' => "allow class-read object_prefix rbd_children, allow rwx pool=#{cinder_pool}, allow rwx pool=#{nova_pool}, allow rwx pool=#{glance_pool}" }
 
 ceph_client ceph_user do
   name ceph_user
