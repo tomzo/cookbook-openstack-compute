@@ -41,6 +41,7 @@ end
 
 service 'nova-api-ec2' do
   service_name platform_options['api_ec2_service']
+  provider Chef::Provider::Service::Upstart
   supports status: true, restart: true
   subscribes :restart, resources('template[/etc/nova/nova.conf]')
 

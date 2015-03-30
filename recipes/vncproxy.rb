@@ -42,6 +42,7 @@ proxy_service = platform_options['compute_vncproxy_service']
 
 service proxy_service do
   service_name proxy_service
+  provider Chef::Provider::Service::Upstart
   supports status: true, restart: true
   subscribes :restart, resources('template[/etc/nova/nova.conf]')
 
@@ -50,6 +51,7 @@ end
 
 service 'nova-consoleauth' do
   service_name platform_options['compute_vncproxy_consoleauth_service']
+  provider Chef::Provider::Service::Upstart
   supports status: true, restart: true
   subscribes :restart, resources('template[/etc/nova/nova.conf]')
 
