@@ -39,6 +39,7 @@ if node['openstack']['compute']['network']['service_type'] == 'nova'
 
   service 'nova-network' do
     service_name platform_options['compute_network_service']
+    provider Chef::Provider::Service::Upstart
     supports status: true, restart: true
     subscribes :restart, resources('template[/etc/nova/nova.conf]')
     action :enable

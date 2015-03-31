@@ -33,14 +33,14 @@ service_user = node['openstack']['compute']['service_user']
 service_role = node['openstack']['compute']['service_role']
 service_tenant_name = node['openstack']['compute']['service_tenant_name']
 public_nova_api_endpoint = public_endpoint 'compute-api'
-admin_nova_api_endpoint = admin_endpoint 'compute-api'
-internal_nova_api_endpoint = internal_endpoint 'compute-api'
+admin_nova_api_endpoint = admin_endpoint 'compute-admin'
+internal_nova_api_endpoint = internal_endpoint 'compute-internal'
 # TBD, another clean up opportunity. We could use the 'admin', and
 # 'internal' endpoints for a single service name. For now, we'll
 # leave the old names in place.
 ec2_admin_endpoint = admin_endpoint 'compute-ec2-admin'
 ec2_public_endpoint = public_endpoint 'compute-ec2-api'
-ec2_internal_endpoint = internal_endpoint 'compute-ec2-api'
+ec2_internal_endpoint = internal_endpoint 'compute-ec2-internal'
 region = node['openstack']['compute']['region']
 
 # Register Service Tenant

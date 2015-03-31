@@ -44,6 +44,7 @@ end
 
 service 'nova-api-metadata' do
   service_name platform_options['compute_api_metadata_service']
+  provider Chef::Provider::Service::Upstart
   supports status: true, restart: true
   subscribes :restart, resources('template[/etc/nova/nova.conf]')
 

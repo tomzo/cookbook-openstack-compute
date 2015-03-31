@@ -47,6 +47,7 @@ end
 
 service 'nova-api-os-compute' do
   service_name platform_options['api_os_compute_service']
+  provider Chef::Provider::Service::Upstart
   supports status: true, restart: true
   subscribes :restart, resources('template[/etc/nova/nova.conf]')
 
