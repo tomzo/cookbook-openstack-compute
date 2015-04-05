@@ -33,8 +33,24 @@ secret_uuid = node['openstack']['compute']['libvirt']['rbd']['cinder']['secret_u
 ceph_keyname = "client.#{ceph_user}"
 ceph_keyring = "/etc/ceph/ceph.#{ceph_keyname}.keyring"
 
+multi_backend = node['openstack']['block-storage']['volume']['multi_backend']
+if multi_backend.nil?
+  cinder_perms = "allow rwx pool=#{cinder_pool},"
+else
+  # there may be many pools to back RBD volumes
+  cinder_perms = ''
+  multi_backend.each do |drv, options|
+    driver = options['volume_driver']
+    # but not all backends have to be RBD
+    next if driver.nil? || driver != 'cinder.volume.drivers.rbd.RBDDriver'
+    cinder_rbd_pool = options['rbd_pool']
+    next if cinder_rbd_pool.nil?
+    cinder_perms << "allow rwx pool=#{cinder_rbd_pool},"
+  end
+end
+
 caps = { 'mon' => 'allow r',
-         'osd' => "allow class-read object_prefix rbd_children, allow rwx pool=#{cinder_pool}, allow rwx pool=#{nova_pool}, allow rwx pool=#{glance_pool}" }
+           'osd' => "allow class-read object_prefix rbd_children, #{cinder_perms} allow rwx pool=#{nova_pool}, allow rwx pool=#{glance_pool}" }
 
 ceph_client ceph_user do
   name ceph_user
