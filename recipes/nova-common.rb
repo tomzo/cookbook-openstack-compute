@@ -152,7 +152,7 @@ template '/etc/nova/nova.conf' do
     html5proxy_bind_host: html5proxy_bind.host,
     html5proxy_bind_port: html5proxy_bind.port,
     spice_server_listen: spice_bind.host,
-    server_proxyclient_address: html5proxy_bind.host,
+    spice_server_proxyclient_address: html5proxy_bind.host,
     memcache_servers: memcache_servers,
     mq_service_type: mq_service_type,
     mq_password: mq_password,
