@@ -501,6 +501,8 @@ when 'debian'
     'compute_vncproxy_service' => 'nova-novncproxy',
     'compute_vncproxy_consoleauth_packages' => ['nova-consoleauth'],
     'compute_vncproxy_consoleauth_service' => 'nova-consoleauth',
+    'compute_spicehtml5proxy_packages' => [ 'spice-html5', 'nova-spiceproxy' ],
+    'compute_spicehtml5proxy_service' => 'nova-spiceproxy',
     'libvirt_packages' => ['libvirt-bin'],
     'libvirt_service' => 'libvirt-bin',
     'libvirt_ceph_packages' => ['ceph-common'],
@@ -515,8 +517,14 @@ when 'debian'
   }
 end
 
-# VNC keymap
+# VNC
+default['openstack']['compute']['vnc']['enabled'] = true
 default['openstack']['compute']['vnc']['keymap'] = 'en-us'
+
+# Spice
+default['openstack']['compute']['spice']['enabled'] = false
+default['openstack']['compute']['spice']['agent_enabled'] = false
+default['openstack']['compute']['spice']['keymap'] = 'en-us'
 
 # plugins
 default['openstack']['compute']['plugins'] = nil

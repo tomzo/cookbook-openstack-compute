@@ -97,8 +97,11 @@ identity_endpoint = internal_endpoint 'identity-internal'
 xvpvnc_endpoint = endpoint 'compute-xvpvnc' || {}
 xvpvnc_bind = endpoint 'compute-xvpvnc-bind' || {}
 novnc_endpoint = endpoint 'compute-novnc' || {}
+html5proxy_endpoint = endpoint 'compute-html5proxy' || {}
 novnc_bind = endpoint 'compute-novnc-bind' || {}
 vnc_bind = endpoint 'compute-vnc-bind' || {}
+html5proxy_bind = endpoint 'compute-html5proxy-bind' || {}
+spice_bind = endpoint 'compute-spice-bind' || {}
 vnc_proxy_bind = endpoint 'compute-vnc-proxy-bind' || {}
 compute_api_bind = endpoint 'compute-api-bind' || {}
 compute_api_endpoint = internal_endpoint 'compute-api' || {}
@@ -110,6 +113,7 @@ image_endpoint = internal_endpoint 'image-api'
 
 Chef::Log.debug("openstack-compute::nova-common:identity_endpoint|#{identity_endpoint.to_s}")
 Chef::Log.debug("openstack-compute::nova-common:xvpvnc_endpoint|#{xvpvnc_endpoint.to_s}")
+Chef::Log.debug("openstack-compute::nova-common:html5proxy_endpoint|#{html5proxy_endpoint.to_s}")
 Chef::Log.debug("openstack-compute::nova-common:novnc_endpoint|#{novnc_endpoint.to_s}")
 Chef::Log.debug("openstack-compute::nova-common:compute_api_endpoint|#{::URI.decode compute_api_endpoint.to_s}")
 Chef::Log.debug("openstack-compute::nova-common:ec2_public_endpoint|#{ec2_public_endpoint.to_s}")
@@ -144,6 +148,11 @@ template '/etc/nova/nova.conf' do
     novncproxy_bind_port: novnc_bind.port,
     vncserver_listen: vnc_bind.host,
     vncserver_proxyclient_address: vnc_proxy_bind.host,
+    html5proxy_base_url: html5proxy_endpoint.to_s,
+    html5proxy_bind_host: html5proxy_bind.host,
+    html5proxy_bind_port: html5proxy_bind.port,
+    spice_server_listen: spice_bind.host,
+    server_proxyclient_address: html5proxy_bind.host,
     memcache_servers: memcache_servers,
     mq_service_type: mq_service_type,
     mq_password: mq_password,

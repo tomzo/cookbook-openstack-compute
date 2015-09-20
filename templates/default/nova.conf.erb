@@ -173,6 +173,7 @@ metadata_listen=<%= @compute_metadata_api_bind_ip %>
 metadata_listen_port=<%= @compute_metadata_api_bind_port %>
 
 ##### VNCPROXY #####
+<% if node['openstack']['compute']['vnc']['enabled'] %>
 novncproxy_base_url=<%= @novncproxy_base_url %>
 xvpvncproxy_base_url=<%= @xvpvncproxy_base_url %>
 
@@ -188,6 +189,9 @@ vncserver_listen=<%= @vncserver_listen %>
 vncserver_proxyclient_address=<%= @vncserver_proxyclient_address %>
 
 vnc_keymap=<%= node['openstack']['compute']['vnc']['keymap'] %>
+<% else %>
+vnc_enabled=False
+<% end %>
 
 # store consoleauth tokens in memcached
 <% unless @memcache_servers.empty? -%>
@@ -683,3 +687,15 @@ os_region_name=<%= node['openstack']['region'] %>
 <%= key %> = <%= val %>
 <% end -%>
 <% end -%>
+
+<% if node['openstack']['compute']['spice']['enabled'] %>
+[spice]
+enabled=True
+agent_enabled=<%= node['openstack']['compute']['spice']['agent_enabled'] %>
+html5proxy_base_url=<%= @html5proxy_base_url %>
+html5proxy_host=<%= @html5proxy_bind_host %>
+html5proxy_port=<%= @html5proxy_bind_port %>
+keymap=<%= node['openstack']['compute']['spice']['keymap'] %>
+server_listen=<%= @spice_server_listen %>
+server_proxyclient_address=<%= @spice_server_proxyclient_address %>
+<% end %>

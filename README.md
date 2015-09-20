@@ -85,7 +85,12 @@ scheduler
 vncproxy
 ----
 - Includes recipe `nova-common`
-- Installs and configures the vncproxy service for console access to VMs
+- Installs and configures the vncproxy service for console access to VMs over vnc protocol
+
+spiceproxy
+----
+- Includes recipe `nova-common`
+- Installs and configures the spiceproxy service for console access to VMs over spice protocol
 
 Attributes
 ==========
@@ -388,6 +393,9 @@ The following attributes are defined in attributes/default.rb of the common cook
 
 * `openstack['endpoints']['compute-vnc-proxy-bind']['host']` - The IP address to bind the vnc proxy service to
 * `openstack['endpoints']['compute-vnc-proxy-bind']['bind_interface']` - The interface name to bind the vnc proxy service to
+
+* `openstack['endpoints']['compute-html5proxy-bind']['host']` - The IP address to bind the html5 spice proxy service to
+* `openstack['endpoints']['compute-html5proxy-bind']['bind_interface']` - The interface name to bind the html5 spice proxy service to
 
 If the value of the 'bind_interface' attribute is non-nil, then the service will be bound to the first IP address on that interface.  If the value of the 'bind_interface' attribute is nil, then the service will be bound to the IP address specified in the host attribute.
 
