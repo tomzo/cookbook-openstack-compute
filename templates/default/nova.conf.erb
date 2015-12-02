@@ -548,9 +548,7 @@ cpu_mode=none
 
 # Specific cachemodes to use for different disk types e.g:
 # file=directsync,block=none (list value)
-<% if node["openstack"]["compute"]["config"]["disk_cachemodes"] %>
 disk_cachemodes=<%= node["openstack"]["compute"]["config"]["disk_cachemodes"] %>
-<% end %>
 
 # A path to a device that will be used as source of entropy on
 # the host. Permitted options are: /dev/random or /dev/hwrng
