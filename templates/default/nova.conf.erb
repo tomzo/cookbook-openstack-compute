@@ -531,6 +531,7 @@ vif_driver=<%= node["openstack"]["compute"]["network"]["neutron"]["libvirt_vif_d
 <% if node["openstack"]["compute"]["libvirt"]["virt_type"] == "qemu" -%>
 cpu_mode=none
 <% end -%>
+cpu_mode=<%= node["openstack"]["compute"]["libvirt"]["cpu_mode"] %>
 
 # Set to a named libvirt CPU model (see names listed in
 # /usr/share/libvirt/cpu_map.xml). Only has effect if
